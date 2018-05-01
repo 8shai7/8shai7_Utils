@@ -1,4 +1,4 @@
-# utils.com
+# Utils.com
 Improvement to Java most used commands, such as: System.out.println(), Arrays and Variables.
 Just Import the jar file and you are ready to go!
 # Optional:
