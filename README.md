@@ -22,7 +22,7 @@ get(Arrays) : cag -> Get arrays set by the set(Arrays) option.
 # How to import the xml template:
 Method 1:
 
-  In eclipse go to Window>>Prefence>>Java>>Editor>>Templates and press Import and choose the xml file.
+  In eclipse go to Window>>Prefence>>Java>>Editor>>Templates than press Import and choose the xml file.
 	
 Method 2:
 
