@@ -15,6 +15,7 @@ public abstract class In{
 	private static Map<String,Short> mapSH = new HashMap<String,Short>();
 	private static Map<String,Byte> mapB = new HashMap<String,Byte>();
 	private static Map<String,Boolean> mapBo = new HashMap<String,Boolean>();
+	private static Map<String,Object> mapA = new HashMap<String, Object>();
 	private static List<String> vals = new LinkedList<String>();
 
 	private static int indexOf(String name) {
@@ -31,6 +32,8 @@ public abstract class In{
 	}
 	private static int numOfCopies(String Name) {
 		int copies = 0;
+		if(mapA.containsKey(Name))
+			copies++;
 		if(mapB.containsKey(Name))
 			copies++;
 		if(mapBo.containsKey(Name))
@@ -52,6 +55,8 @@ public abstract class In{
 		return copies;
 	}
 	private static void deleteCopiesOf(String Name) {
+		if(mapA.containsKey(Name))
+			mapA.remove(Name);
 		if(mapB.containsKey(Name))
 			mapB.remove(Name);
 		if(mapBo.containsKey(Name))
@@ -82,7 +87,7 @@ public abstract class In{
 		System.out.println();
 	}
 	public static void printAll() {
-		String str = "Byte: "+mapB.toString()+" Boolean: "+mapBo.toString()+" Character: "+mapC.toString()+" Double: "+mapD.toString()+" Float: "+mapF.toString()+" Integer: "+mapI.toString()+" Long: "+mapL.toString()+" Short: "+mapSH.toString()+" String: "+mapS.toString()+" Names: "+vals.toString();
+		String str = "Objects: "+mapA.toString()+"Byte: "+mapB.toString()+" Boolean: "+mapBo.toString()+" Character: "+mapC.toString()+" Double: "+mapD.toString()+" Float: "+mapF.toString()+" Integer: "+mapI.toString()+" Long: "+mapL.toString()+" Short: "+mapSH.toString()+" String: "+mapS.toString()+" Names: "+vals.toString();
 		System.out.println(str);
 	}
 	public static <T> void printAll(Class<?> T) {
@@ -105,7 +110,8 @@ public abstract class In{
 			System.out.println(mapI.toString());
 		}else if(cl.equals(Double.class)) {
 			System.out.println(mapD.toString());
-		}
+		}else
+			System.out.println(mapA.toString());
 	}
 	public static void set(String name){
 		set(name, null);
@@ -139,33 +145,34 @@ public abstract class In{
 				mapD.put(name, (Double) value);
 			else if(val==Boolean.class)
 				mapBo.put(name, (Boolean) value);
+			else if(val instanceof Object)
+				mapA.put(name, (Object) value);
 			else
 				System.err.println("Set Error: Cannot Find Given Type!");
 		}
 	}
 	public static Object get(String name) {
 		String type = search4Type(name);
-		if(type=="int"||type=="Integer")
+		if(type.toLowerCase().equals("int")||type.toLowerCase().equals("integer"))
 			return mapI.get(name);
-		if(type=="String")
+		if(type.toLowerCase().equals("string"))
 			return	mapS.get(name);
-		if(type=="char"||type=="Character")
+		if(type.toLowerCase().equals("char")||type.toLowerCase().equals("character"))
 			return mapC.get(name);
-		if(type=="long"||type=="Long")
+		if(type.toLowerCase().equals("long"))
 			return mapL.get(name);
-		if(type=="float"||type=="Float")
+		if(type.toLowerCase().equals("float"))
 			return mapF.get(name);
-		if(type=="short"||type=="Short")
+		if(type.toLowerCase().equals("short"))
 			return mapSH.get(name);
-		if(type=="byte"||type=="Byte")
+		if(type.toLowerCase().equals("byte"))
 			return mapB.get(name);
-		if(type=="double"||type=="Double")
+		if(type.toLowerCase().equals("double"))
 			return mapD.get(name);
-		if(type=="boolean"||type=="Boolean")
+		if(type.toLowerCase().equals("boolean")||type.toLowerCase().equals("bool"))
 			return mapBo.get(name);
-		if(type==null) {
-			return null;
-		}
+		if(type.toLowerCase().equals("object")||type.toLowerCase().equals("obj"))
+			return mapA.get(name);
 		System.err.println("Not Found!");
 		return null;
 	}
@@ -188,6 +195,8 @@ public abstract class In{
 			return "Byte";
 		else if(!getByType(name, "Boolean").equals("null"))
 			return "Boolean";
+		else if(!getByType(name, "Object").equals("null"))
+			return "Object";
 		return null;
 	}
 	private static String getByType(String name, String type) {
@@ -209,6 +218,8 @@ public abstract class In{
 			return mapD.get(name)+"";
 		if(type=="boolean"||type=="Boolean")
 			return mapBo.get(name)+"";
+		if(type=="Object"||type=="object")
+			return mapA.get(name)+"";
 		System.err.println("Not Found!");
 		return null;
 	}
