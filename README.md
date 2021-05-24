@@ -6,7 +6,7 @@ Just Import the jar file and you are ready to go!
 # Optional:
 You can use the template xml if you want to add the hotkeys for the functions.
 
-# Useful Commands and Hotkeys(Hotkeys will work only if you imported the xml template - Guide will shown below):
+# Useful Commands and Hotkeys(Hotkeys will only work if you imported the xml template - Guide will be shown below):
 println : copl -> Regular println for primative / Object will print their fields / Arrays will print their contents.
 
 print : cop -> Regular print for primative / Object will be print their fields.
